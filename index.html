@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larper tierlist</title>
+
+<style>
+:root {
+  --bg: #0d121a;
+  --panel: #151e29;
+  --border: #202c3a;
+  --text: #e3e8f0;
+  --muted: #9aacc4;
+  --gold: #f7c23e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  width: calc(100% - 40px);
+  max-width: 1265px;
+  margin: 0 auto;
+}
+
+header {
+  margin-top: 4px;
+  min-height: 75px;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: #101720;
+  border: 1px solid #202c3a;
+  border-radius: 16px;
+}
+
+.logo {
+  color: var(--gold);
+  font-size: 27px;
+  font-weight: 900;
+  font-style: italic;
+  white-space: nowrap;
+  margin-right: auto;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #aab5c5;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+nav a.active {
+  color: white;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+.search {
+  width: 200px;
+  padding: 11px 14px;
+  border: 1px solid #263243;
+  border-radius: 30px;
+  background: #1a2432;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.search:focus {
+  border-color: var(--gold);
+}
+
+.heading {
+  margin: 37px 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+h1 {
+  margin: 8px 0 5px;
+  font-size: 25px;
+}
+
+.subtitle {
+  color: #a0b0c6;
+  font-size: 13px;
+}
+
+.info-button {
+  background: #1d2938;
+  color: #e5ebf4;
+  border: 1px solid #354254;
+  padding: 11px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.board {
+  background: #111923;
+  border: 1px solid #202c3a;
+  border-radius: 15px;
+  padding: 0 10px 10px;
+  overflow: hidden;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 750px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  table-layout: fixed;
+}
+
+col.rank-col { width: 22%; }
+col.player-col { width: 25%; }
+col.group-col { width: 18%; }
+col.score-col { width: 9%; }
+col.badge-col { width: 14%; }
+col.extra-col { width: 12%; }
+
+th {
+  text-align: left;
+  padding: 14px 12px;
+  color: #65758c;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+td {
+  background: var(--panel);
+  padding: 9px 12px;
+  border-top: 1px solid #1c2735;
+  border-bottom: 1px solid #1c2735;
+}
+
+td:first-child {
+  border-left: 1px solid #1c2735;
+  border-radius: 10px 0 0 10px;
+  padding-left: 0;
+}
+
+td:last-child {
+  border-right: 1px solid #1c2735;
+  border-radius: 0 10px 10px 0;
+}
+
+.player-banner {
+  display: flex;
+  align-items: center;
+  height: 53px;
+  width: 145px;
+  max-width: 100%;
+  overflow: hidden;
+  background: #253346;
+  border: 1px solid #344357;
+}
+
+.rank {
+  min-width: 55px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 27px;
+  font-weight: 1000;
+  font-style: italic;
+}
+
+.medal {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  background: #1d2939;
+}
+
+.first .player-banner {
+  background: #f5c342;
+}
+
+.first .rank {
+  background: #f5c342;
+}
+
+.first .medal {
+  background: #f5c342;
+}
+
+.second .player-banner {
+  background: #7d858b;
+}
+
+.second .rank {
+  background: #7d858b;
+}
+
+.second .medal {
+  background: #28394e;
+}
+
+.third .player-banner {
+  background: #9a5d00;
+}
+
+.third .rank {
+  background: #9a5d00;
+}
+
+.third .medal {
+  background: #9a5d00;
+}
+
+.player-name {
+  font-size: 20px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #a4b5cd;
+}
+
+.group {
+  display: inline-block;
+  padding: 11px 9px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.group.gold {
+  color: #ffcf58;
+  background: #42331d;
+}
+
+.group.green {
+  color: #7bf29b;
+  background: #1c3e2c;
+}
+
+.group.red {
+  color: #ff7388;
+  background: #45232e;
+}
+
+.score {
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: #29384c;
+  color: #d8e2f0;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.footer {
+  color: #78879b;
+  font-size: 12px;
+  margin-top: 14px;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 900px) {
+  header {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .search {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .heading {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: calc(100% - 20px);
+  }
+
+  header {
+    padding: 14px;
+  }
+
+  nav {
+    gap: 12px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .player-name {
+    font-size: 17px;
+  }
+
+  .board {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div class="logo">Larper tierlist</div>
+
+  <nav>
+    <a href="#home">⌂ Home</a>
+    <a class="active" href="#rankings">🏆 Rankings</a>
+    <a href="#members">👥 Members</a>
+    <a href="#statistics">▤ Statistics</a>
+  </nav>
+
+  <input
+    class="search"
+    id="search"
+    type="search"
+    placeholder="⌕ Search players..."
+    aria-label="Search players"
+  >
+</header>
+
+<section class="heading" id="home">
+  <div>
+    <div class="eyebrow">COMMUNITY LEADERBOARD</div>
+    <h1 id="page-title">Top Larpers</h1>
+    <div class="subtitle">A ranking of our top larpers.</div>
+  </div>
+
+  <button class="info-button" id="information">
+    ⓘ Information
+  </button>
+</section>
+
+<main class="board" id="rankings">
+<div class="table-wrap">
+<table>
+<colgroup>
+  <col class="rank-col">
+  <col class="player-col">
+  <col class="group-col">
+  <col class="score-col">
+  <col class="badge-col">
+  <col class="extra-col">
+</colgroup>
+
+<thead>
+<tr>
+  <th>#</th>
+  <th>PERSON</th>
+  <th>GROUP</th>
+  <th>SCORE</th>
+  <th>BADGE</th>
+  <th></th>
+</tr>
+</thead>
+
+<tbody id="players">
+
+<tr class="first" data-search="maitao first place top larper champion">
+  <td>
+    <div class="player-banner">
+      <span class="rank">1.</span>
+      <span class="medal">🥇</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Maitao</div>
+    <div class="description">First place</div>
+  </td>
+  <td><span class="group gold">Top larper</span></td>
+  <td><span class="score">980</span></td>
+  <td><span class="badge">Champion</span></td>
+  <td></td>
+</tr>
+
+<tr class="second" data-search="ferret0_o good larper top larper good larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">2.</span>
+      <span class="medal">🥈</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Ferret0_o</div>
+    <div class="description">Good larper</div>
+  </td>
+  <td><span class="group green">Top larper</span></td>
+  <td><span class="score">979</span></td>
+  <td><span class="badge">Good larper</span></td>
+  <td></td>
+</tr>
+
+<tr class="third" data-search="coolcolepants mid larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">3.</span>
+      <span class="medal">🥉</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Coolcolepants</div>
+    <div class="description">Mid larper</div>
+  </td>
+  <td><span class="group red">Top larper</span></td>
+  <td><span class="score">973</span></td>
+  <td><span class="badge">Mid larper</span></td>
+  <td></td>
+</tr>
+
+<tr data-search="pierrette larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">4.</span>
+      <span class="medal">👤</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Pierrette</div>
+    <div class="description">Larper</div>
+  </td>
+  <td><span class="group red">Larper</span></td>
+  <td><span class="score">932</span></td>
+  <td><span class="badge">Larper</span></td>
+  <td></td>
+</tr>
+
+<tr data-search="nativation larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">5.</span>
+      <span class="medal">👤</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Nativation</div>
+    <div class="description">Larper</div>
+  </td>
+  <td><span class="group red">Larper</span></td>
+  <td><span class="score">850</span></td>
+  <td><span class="badge">Larper</span></td>
+  <td></td>
+</tr>
+
+<tr data-search="pengusah larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">6.</span>
+      <span class="medal">👤</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Pengusah</div>
+    <div class="description">Larper</div>
+  </td>
+  <td><span class="group red">Larper</span></td>
+  <td><span class="score">825</span></td>
+  <td><span class="badge">Larper</span></td>
+  <td></td>
+</tr>
+
+<tr data-search="bionictea_ larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">7.</span>
+      <span class="medal">👤</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">Bionictea_</div>
+    <div class="description">Larper</div>
+  </td>
+  <td><span class="group red">Larper</span></td>
+  <td><span class="score">800</span></td>
+  <td><span class="badge">Larper</span></td>
+  <td></td>
+</tr>
+
+<tr data-search="lavplaysmc larper">
+  <td>
+    <div class="player-banner">
+      <span class="rank">8.</span>
+      <span class="medal">👤</span>
+    </div>
+  </td>
+  <td>
+    <div class="player-name">LAVplaysMC</div>
+    <div class="description">Larper</div>
+  </td>
+  <td><span class="group red">Larper</span></td>
+  <td><span class="score">786</span></td>
+  <td><span class="badge">Larper</span></td>
+  <td></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<div id="no-results" class="footer" hidden>No players found.</div>
+</main>
+
+<div class="footer" id="count">Showing 8 of 8 people</div>
+
+</div>
+
+<script>
+const search = document.getElementById("search");
+const rows = [...document.querySelectorAll("#players tr")];
+const count = document.getElementById("count");
+const noResults = document.getElementById("no-results");
+
+search.addEventListener("input", () => {
+  const query = search.value.trim().toLowerCase();
+  let visible = 0;
+
+  rows.forEach(row => {
+    const matches = row.dataset.search.includes(query);
+    row.hidden = !matches;
+    if (matches) visible++;
+  });
+
+  count.textContent = `Showing ${visible} of ${rows.length} people`;
+  noResults.hidden = visible !== 0;
+});
+
+document.getElementById("information").addEventListener("click", () => {
+  alert("Welcome to the Larper tierlist leaderboard!");
+});
+
+document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+  link.addEventListener("click", event => {
+    const target = document.querySelector(link.getAttribute("href"));
+    if (target) {
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
+</script>
+</body>
+</html>
